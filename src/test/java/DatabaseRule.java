@@ -14,11 +14,11 @@ public class DatabaseRule extends ExternalResource {
       String deleteRecipesQuery = "DELETE FROM recipes *;";
       String deleteTagsQuery = "DELETE FROM tags *;";
       String deleteRecipeTagQuery = "DELETE FROM recipe_tag *;";
-      String deleteIngredientsQuery = "DELETE FROM ingredients *;";
+      // String deleteIngredientsQuery = "DELETE FROM ingredients *;";
       con.createQuery(deleteRecipesQuery).executeUpdate();
       con.createQuery(deleteTagsQuery).executeUpdate();
       con.createQuery(deleteRecipeTagQuery).executeUpdate();
-      con.createQuery(deleteIngredientsQuery).executeUpdate();
+      // con.createQuery(deleteIngredientsQuery).executeUpdate();
     }
   }
 }
