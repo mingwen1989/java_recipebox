@@ -1,0 +1,27 @@
+<h1>Recipes</h1>
+
+#foreach($recipe in $recipes)
+  <ul>
+    <li><a href = "/recipes/$recipe.getId()">$recipe.getTitle(), $recipe.getRating() stars</a></li>
+  </ul>
+#end
+
+<h1>Add a Recipe:</h1>
+
+<form action="/recipes" method="post">
+  <label for="recipeTitle">Recipe Title:</label>
+    <input type="text" name="recipeTitle" id="recipeTitle"></input><br>
+
+  <label for="recipeInstructions">Recipe Instructions:</label>
+    <input type="text" name="recipeInstructions" id="recipeInstructions"></input><br>
+
+  <label for="recipeRating">Rating:</label>
+    <input type="text" name="recipeRating" id="recipeRating"></input><br>
+
+  <button class="button">Add Recipe</button>
+</form>
+
+
+<form action="/sort" method="post">
+  <button class="button">Sort by Rating (Desc)</button>
+</form>

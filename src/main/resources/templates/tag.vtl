@@ -1,0 +1,25 @@
+<h1>$tag.getName()</h1>
+
+<div class="container">
+#if($tag.getRecipes())
+  Recipes for this Tag:
+  <ul>
+    #foreach($recipe in $tag.getRecipes())
+      <li>$recipe.getTitle()</li>
+    #end
+  </ul>
+#end
+</div>
+
+<h3>Update Tag</h3>
+  <form action="/tags/$tag.getId()/update" method="post">
+    <input type="text" id="updateTagName" name="updateTagName"></input>
+
+    <button type="submit" class="btn">Update Tag</button>
+  </form>
+
+<h3>Delete Tag</h3>
+  <form action="/tags/$tag.getId()/delete" method="post">
+
+    <button type="submit" class="btn">***Delete Tag***</button>
+  </form>

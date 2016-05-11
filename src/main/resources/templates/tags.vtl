@@ -1,0 +1,16 @@
+<h1>Tags</h1>
+
+#foreach($tag in $taglist)
+  <ul>
+    <li><a href="/tags/$tag.getId()">$tag.getName()</a></li>
+  </ul>
+#end
+
+<h1>Add Tag:</h1>
+
+<form action="/tags" method="post">
+  <label for="tagTitle">Genre:</label>
+    <input type="text" name="tagTitle" id="tagTitle"></input>
+
+      <button type="submit" class="btn btn-default">Add Tag</button>
+</form>

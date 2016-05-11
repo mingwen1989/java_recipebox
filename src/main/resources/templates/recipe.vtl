@@ -1,0 +1,41 @@
+<h1>$recipe.getTitle()</h1>
+<h3>Instructions</h3>
+<p>$recipe.getInstructions()</p>
+<h3>Rating</h3>
+<p>$recipe.getRating() stars</p>
+
+#if($recipe.getTags())
+  <h3>Tags for this Recipe</h3>
+  <ul>
+    #foreach($tag in $recipe.getTags())
+      <li>$tag.getName()</li>
+    #end
+  </ul>
+#end
+
+<br>
+<form action="/recipes/$recipe.getId()/add_tag" method = "post">
+  <input id = "recipe_id" name = "recipe_id" type = "hidden" value = "$recipe.getId()">
+  <label for = "tag_id">Add a new tag</label>
+  <select id = "tag_id"  name = "tag_id" type = "text">
+    #foreach($tag in $allTags)
+      <option value = "$tag.getId()">$tag.getName()</option>
+    #end
+  </select>
+  <button type = "submit" class = "btn">Add Tag</button>
+</form>
+
+<h3>Edit Recipe</h3>
+<form action="/recipes/$recipe.getId()/update" method="post">
+  <input type="text" placeholder="Title" id="updateRecipeTitle" name="updateRecipeTitle"></input>
+  <input type="text" placeholder="Instructions" id="updateRecipeInstruction" name="updateRecipeInstruction"></input>
+  <input type="text" placeholder="Rating" id="updateRecipeRating" name="updateRecipeRating"></input>
+
+  <button type="submit" class="btn">Update Recipe</button>
+</form>
+
+<h3>Delete Recipe</h3>
+<form action="/recipes/$recipe.getId()/delete" method="post">
+
+  <button type="submit" class="btn">***Delete Recipe***</button>
+</form>
