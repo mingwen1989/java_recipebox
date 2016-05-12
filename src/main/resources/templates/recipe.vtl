@@ -14,15 +14,36 @@
 #end
 
 <br>
-<form action="/recipes/$recipe.getId()/add_tag" method = "post">
-  <input id = "recipe_id" name = "recipe_id" type = "hidden" value = "$recipe.getId()">
-  <label for = "tag_id">Add a new tag</label>
-  <select id = "tag_id"  name = "tag_id" type = "text">
+<form action="/recipes/$recipe.getId()/add_tag" method="post">
+  <input id="recipe_id" name="recipe_id" type="hidden" value="$recipe.getId()">
+  <label for="tag_id">Add a new tag</label>
+  <select id="tag_id"  name="tag_id" type="text">
     #foreach($tag in $allTags)
-      <option value = "$tag.getId()">$tag.getName()</option>
+      <option value="$tag.getId()">$tag.getName()</option>
     #end
   </select>
-  <button type = "submit" class = "btn">Add Tag</button>
+  <button type="submit" class="btn">Add Tag</button>
+</form>
+
+#if($recipe.getIngredients().size() != 0)
+  <h3>Ingredients for this Recipe</h3>
+  <ul>
+    #foreach($ingredient in $recipe.getIngredients())
+      <li>$ingredient.getIngredient()</li>
+    #end
+  </ul>
+#end
+
+<br>
+<form action="/recipes/$recipe.getId()/add_ingredient" method="post">
+  <input id="recipe_id" name="recipe_id" type="hidden" value="$recipe.getId()">
+  <label for="ingredient_id">Add a new ingredient</label>
+  <select id="ingredient_id"  name="ingredient_id" type="text">
+    #foreach($ingredient in $allIngredients)
+      <option value="$ingredient.getId()">$ingredient.getIngredient()</option>
+    #end
+  </select>
+  <button type="submit" class="btn">Add Ingredient</button>
 </form>
 
 <h3>Edit Recipe</h3>

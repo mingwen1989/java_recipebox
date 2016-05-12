@@ -131,60 +131,60 @@ public class Recipe {
      }
    }
 
-    public static void sortRating() {
+    // public static void sortRating() {
+    //   try(Connection con = DB.sql2o.open()) {
+    //   String sortRating = "DROP TABLE IF EXISTS recipes2";
+    //   con.createQuery(sortRating)
+    //     .executeUpdate();
+    //   sortRating = "CREATE TABLE recipes2 AS SELECT title, instructions, rating FROM recipes ORDER BY rating DESC";
+    //   con.createQuery(sortRating)
+    //     .executeUpdate();
+    //   sortRating = "ALTER TABLE recipes2 ADD COLUMN id SERIAL";
+    //   con.createQuery(sortRating)
+    //       .executeUpdate();
+    //   sortRating = "ALTER TABLE recipes2 ADD PRIMARY KEY (id)";
+    //   con.createQuery(sortRating)
+    //       .executeUpdate();
+    //   sortRating = "DROP TABLE recipes";
+    //   con.createQuery(sortRating)
+    //     .executeUpdate();
+    //   sortRating = "ALTER TABLE recipes2 RENAME TO recipes";
+    //   con.createQuery(sortRating)
+    //     .executeUpdate();
+    //   }
+    // }
+
+    public void addIngredient(Ingredient ingredient) {
       try(Connection con = DB.sql2o.open()) {
-      String sortRating = "DROP TABLE IF EXISTS recipes2";
-      con.createQuery(sortRating)
-        .executeUpdate();
-      sortRating = "CREATE TABLE recipes2 AS SELECT title, instructions, rating FROM recipes ORDER BY rating DESC";
-      con.createQuery(sortRating)
-        .executeUpdate();
-      sortRating = "ALTER TABLE recipes2 ADD COLUMN id SERIAL";
-      con.createQuery(sortRating)
-          .executeUpdate();
-      sortRating = "ALTER TABLE recipes2 ADD PRIMARY KEY (id)";
-      con.createQuery(sortRating)
-          .executeUpdate();
-      sortRating = "DROP TABLE recipes";
-      con.createQuery(sortRating)
-        .executeUpdate();
-      sortRating = "ALTER TABLE recipes2 RENAME TO recipes";
-      con.createQuery(sortRating)
+        String sql = "INSERT INTO recipe_ingredient (recipe_id, ingredient_id) VALUES (:recipe_id, :ingredient_id)";
+        con.createQuery(sql)
+        .addParameter("recipe_id", this.getId())
+        .addParameter("ingredient_id", ingredient.getId())
         .executeUpdate();
       }
     }
 
-    // public void addIngredient(Ingredient ingredient) {
-    //   try(Connection con = DB.sql2o.open()) {
-    //     String sql = "INSERT INTO recipe_ingredient (recipe_id, ingredient_id) VALUES (:recipe_id, :ingredient_id)";
-    //     con.createQuery(sql)
-    //     .addParameter("recipe_id", this.getId())
-    //     .addParameter("ingredient_id", ingredient.getId())
-    //     .executeUpdate();
-    //   }
-    // }
-    //
-    // public List<Ingredient> getIngredients() {
-    //   try(Connection con = DB.sql2o.open()) {
-    //     String joinQuery = "SELECT ingredient_id FROM recipe_ingredient WHERE recipe_id = :recipe_id";
-    //     List<Integer> ingredientIds = con.createQuery(joinQuery)
-    //       .addParameter("recipe_id", this.getId())
-    //       .executeAndFetch(Integer.class);
-    //
-    //     List<Ingredient> ingredients = new ArrayList<Ingredient>();
-    //
-    //     for (Integer ingredientId : ingredientIds) {
-    //       String ingredientQuery = "SELECT * FROM ingredients WHERE id = :ingredientId";
-    //       Ingredient ingredient = con.createQuery(ingredientQuery)
-    //         .addParameter("ingredientId", ingredientId)
-    //         .executeAndFetchFirst(Ingredient.class);
-    //       ingredients.add(ingredient);
-    //     }
-    //     // if (ingredients.size() == 0) {
-    //     //   return null;
-    //     // } else {
-    //       return ingredients;
-    //     // }
-    //   }
-    // }
+    public List<Ingredient> getIngredients() {
+      try(Connection con = DB.sql2o.open()) {
+        String joinQuery = "SELECT ingredient_id FROM recipe_ingredient WHERE recipe_id = :recipe_id";
+        List<Integer> ingredientIds = con.createQuery(joinQuery)
+          .addParameter("recipe_id", this.getId())
+          .executeAndFetch(Integer.class);
+
+        List<Ingredient> ingredients = new ArrayList<Ingredient>();
+
+        for (Integer ingredientId : ingredientIds) {
+          String ingredientQuery = "SELECT * FROM ingredients WHERE id = :ingredientId";
+          Ingredient ingredient = con.createQuery(ingredientQuery)
+            .addParameter("ingredientId", ingredientId)
+            .executeAndFetchFirst(Ingredient.class);
+          ingredients.add(ingredient);
+        }
+        // if (ingredients.size() == 0) {
+        //   return null;
+        // } else {
+          return ingredients;
+        // }
+      }
+    }
 }

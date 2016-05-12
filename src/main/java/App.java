@@ -52,6 +52,7 @@ public class App {
       Recipe recipe = Recipe.find(Integer.parseInt(request.params(":id")));
       model.put("recipe", recipe);
       model.put("allTags", Tag.all());
+      model.put("allIngredients", Ingredient.all());
       model.put("template", "templates/recipe.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
@@ -105,11 +106,58 @@ public class App {
       return null;
     });
 
-    post("/sort", (request, response) -> {
-      Recipe.sortRating();
-      response.redirect("/recipes");
+    get("/ingredients", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("ingredientlist", Ingredient.all());
+      model.put("template", "templates/ingredients.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/ingredients", (request, response) -> {
+      String ingredientTitle = request.queryParams("ingredientTitle");
+      Ingredient newIngredient = new Ingredient(ingredientTitle);
+      newIngredient.save();
+      response.redirect("/ingredients");
       return null;
     });
+
+    post("/recipes/:id/add_ingredient", (request, response) -> {
+      Recipe recipe = Recipe.find(Integer.parseInt(request.params(":id")));
+      int newIngredient = Integer.parseInt(request.queryParams("ingredient_id"));
+      recipe.addIngredient(Ingredient.find(newIngredient));
+      response.redirect("/recipes/" + recipe.getId());
+      return null;
+    });
+
+    get("/ingredients/:id", (request, response) -> {
+      HashMap<String,Object> model = new HashMap<String,Object>();
+      Ingredient ingredient = Ingredient.find(Integer.parseInt(request.params(":id")));
+      model.put("ingredient", ingredient);
+      model.put("allRecipes", Recipe.all());
+      model.put("template", "templates/ingredient.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/ingredients/:id/update", (request, response) -> {
+      Ingredient ingredient = Ingredient.find(Integer.parseInt(request.params(":id")));
+      String updateIngredient = request.queryParams("updateIngredientName");
+      ingredient.update(updateIngredient);
+      response.redirect("/ingredients/" + ingredient.getId());
+      return null;
+    });
+
+    post("/ingredients/:id/delete", (request, response) -> {
+      Ingredient ingredient = Ingredient.find(Integer.parseInt(request.params(":id")));
+      ingredient.delete();
+      response.redirect("/ingredients");
+      return null;
+    });
+
+    // post("/sort", (request, response) -> {
+    //   Recipe.sortRating();
+    //   response.redirect("/recipes");
+    //   return null;
+    // });
 
   }
 }

@@ -1,0 +1,15 @@
+<h1>Ingredients</h1>
+
+#foreach($ingredient in $ingredientlist)
+  <ul>
+    <li><a href="/ingredients/$ingredient.getId()">$ingredient.getIngredient()</a></li>
+  </ul>
+#end
+
+<h1>Add Ingredient:</h1>
+
+<form action="/ingredients" method="post">
+    <input type="text" name="ingredientTitle" id="ingredientTitle"></input>
+
+      <button type="submit" class="btn btn-default">Add Tag</button>
+</form>

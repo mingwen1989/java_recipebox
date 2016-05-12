@@ -1,0 +1,25 @@
+<h1>$ingredient.getIngredient()</h1>
+
+<div class="container">
+#if($ingredient.getRecipes().size() != 0)
+  Recipes for this Ingredient:
+  <ul>
+    #foreach($recipe in $ingredient.getRecipes())
+      <li>$recipe.getTitle()</li>
+    #end
+  </ul>
+#end
+</div>
+
+<h3>Update Ingredient</h3>
+  <form action="/ingredients/$ingredient.getId()/update" method="post">
+    <input type="text" id="updateIngredientName" name="updateIngredientName"></input>
+
+    <button type="submit" class="btn">Update Ingredient</button>
+  </form>
+
+<h3>Delete Ingredient</h3>
+  <form action="/ingredients/$ingredient.getId()/delete" method="post">
+
+    <button type="submit" class="btn">***Delete Ingredient***</button>
+  </form>
