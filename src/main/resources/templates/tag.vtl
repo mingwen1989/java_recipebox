@@ -1,7 +1,7 @@
 <h1>$tag.getName()</h1>
 
 <div class="container">
-#if($tag.getRecipes())
+#if($tag.getRecipes().size() != 0)
   Recipes for this Tag:
   <ul>
     #foreach($recipe in $tag.getRecipes())

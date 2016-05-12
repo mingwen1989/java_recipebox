@@ -110,11 +110,11 @@ public class Recipe {
            .executeAndFetchFirst(Tag.class);
          tags.add(tag);
        }
-       if (tags.size() == 0) {
-         return null;
-       } else {
+      //  if (tags.size() == 0) {
+      //    return null;
+      //  } else {
          return tags;
-       }
+      //  }
      }
    }
 
@@ -153,4 +153,38 @@ public class Recipe {
         .executeUpdate();
       }
     }
+
+    // public void addIngredient(Ingredient ingredient) {
+    //   try(Connection con = DB.sql2o.open()) {
+    //     String sql = "INSERT INTO recipe_ingredient (recipe_id, ingredient_id) VALUES (:recipe_id, :ingredient_id)";
+    //     con.createQuery(sql)
+    //     .addParameter("recipe_id", this.getId())
+    //     .addParameter("ingredient_id", ingredient.getId())
+    //     .executeUpdate();
+    //   }
+    // }
+    //
+    // public List<Ingredient> getIngredients() {
+    //   try(Connection con = DB.sql2o.open()) {
+    //     String joinQuery = "SELECT ingredient_id FROM recipe_ingredient WHERE recipe_id = :recipe_id";
+    //     List<Integer> ingredientIds = con.createQuery(joinQuery)
+    //       .addParameter("recipe_id", this.getId())
+    //       .executeAndFetch(Integer.class);
+    //
+    //     List<Ingredient> ingredients = new ArrayList<Ingredient>();
+    //
+    //     for (Integer ingredientId : ingredientIds) {
+    //       String ingredientQuery = "SELECT * FROM ingredients WHERE id = :ingredientId";
+    //       Ingredient ingredient = con.createQuery(ingredientQuery)
+    //         .addParameter("ingredientId", ingredientId)
+    //         .executeAndFetchFirst(Ingredient.class);
+    //       ingredients.add(ingredient);
+    //     }
+    //     // if (ingredients.size() == 0) {
+    //     //   return null;
+    //     // } else {
+    //       return ingredients;
+    //     // }
+    //   }
+    // }
 }

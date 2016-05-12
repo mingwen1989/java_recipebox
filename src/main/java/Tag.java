@@ -94,11 +94,11 @@ public class Tag {
           .executeAndFetchFirst(Recipe.class);
         recipes.add(recipe);
       }
-      if (recipes.size() == 0) {
-        return null;
-      } else {
+      // if (recipes.size() == 0) {
+      //   return null;
+      // } else {
         return recipes;
-      }
+      // }
     }
   }
 

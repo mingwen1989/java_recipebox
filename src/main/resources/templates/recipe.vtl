@@ -4,7 +4,7 @@
 <h3>Rating</h3>
 <p>$recipe.getRating() stars</p>
 
-#if($recipe.getTags())
+#if($recipe.getTags().size() != 0)
   <h3>Tags for this Recipe</h3>
   <ul>
     #foreach($tag in $recipe.getTags())
